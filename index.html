@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Business Idea Generator</title>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    if (location.protocol === "file:") {
+      document.write('<div style="font-family:sans-serif;text-align:center;padding:60px 20px;"><h2>⚠️ Wrong way to open this app</h2><p>You opened <code>index.html</code> directly as a file. This cannot call the AI API.</p><p style="margin-top:20px"><strong>Do this instead:</strong></p><ol style="display:inline-block;text-align:left;line-height:2"><li>Double-click <strong>start.bat</strong> in this folder</li><li>Wait 2 seconds for the browser to open automatically</li><li>Use the app at <a href="http://localhost:3000">http://localhost:3000</a></li></ol></div>');
+      throw new Error("Opened as file://");
+    }
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="#1f4ef5"/>
+          <path d="M8 22L16 10L24 22" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="16" cy="10" r="2" fill="white"/>
+        </svg>
+        <span class="logo-text">IdeaForge <span class="badge">AI</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#generator">Generator</a>
+        <a href="#how">How It Works</a>
+        <a href="#ideas-history">My Ideas</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Generate <span class="gradient-text">Smart Business Ideas</span><br/>Powered by IBM Granite AI</h1>
+      <p class="hero-sub">Describe your interests, skills, or market — get actionable, tailored business ideas in seconds.</p>
+      <a href="#generator" class="btn-primary">Start Generating →</a>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-card card-1">🚀 SaaS Platform</div>
+      <div class="floating-card card-2">💡 E-Commerce Niche</div>
+      <div class="floating-card card-3">🌱 Sustainable Brand</div>
+      <div class="floating-card card-4">📱 Mobile App</div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-section" id="how">
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">1</div>
+        <h3>Describe Your Context</h3>
+        <p>Enter your skills, interests, budget, or target market.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-icon">2</div>
+        <h3>AI Analyzes</h3>
+        <p>IBM Granite AI processes your input and generates tailored ideas.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-icon">3</div>
+        <h3>Get Your Ideas</h3>
+        <p>Receive structured ideas with descriptions, market potential & next steps.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Generator -->
+  <section class="generator-section" id="generator">
+    <div class="generator-card">
+      <h2>Business Idea Generator</h2>
+      <p class="generator-sub">Fill in the details below and let IBM Granite AI create your personalized business ideas.</p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="skills">Your Skills / Expertise</label>
+          <input type="text" id="skills" placeholder="e.g., programming, marketing, cooking…" />
+        </div>
+        <div class="form-group">
+          <label for="budget">Startup Budget</label>
+          <select id="budget">
+            <option value="">Select budget range</option>
+            <option value="under $1,000">Under $1,000</option>
+            <option value="$1,000 – $10,000">$1,000 – $10,000</option>
+            <option value="$10,000 – $50,000">$10,000 – $50,000</option>
+            <option value="$50,000+">$50,000+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="industry">Industry / Niche</label>
+          <input type="text" id="industry" placeholder="e.g., health, tech, education, food…" />
+        </div>
+        <div class="form-group">
+          <label for="audience">Target Audience</label>
+          <input type="text" id="audience" placeholder="e.g., students, remote workers, parents…" />
+        </div>
+        <div class="form-group full-width">
+          <label for="context">Additional Context <span class="optional">(optional)</span></label>
+          <textarea id="context" rows="3" placeholder="Any specific problems you want to solve, regions, constraints, or preferences…"></textarea>
+        </div>
+        <div class="form-group full-width">
+          <label for="count">Number of Ideas</label>
+          <div class="count-selector">
+            <button class="count-btn" onclick="adjustCount(-1)">−</button>
+            <span id="count-display">3</span>
+            <button class="count-btn" onclick="adjustCount(1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-generate" id="generate-btn" onclick="generateIdeas()">
+        <span id="btn-text">✨ Generate Business Ideas</span>
+        <span id="btn-loader" class="loader hidden"></span>
+      </button>
+
+      <!-- Error -->
+      <div id="error-box" class="error-box hidden"></div>
+
+      <!-- Results -->
+      <div id="results-section" class="results-section hidden">
+        <div class="results-header">
+          <h3>Your Business Ideas</h3>
+          <button class="btn-copy" onclick="copyAll()">📋 Copy All</button>
+        </div>
+        <div id="ideas-container" class="ideas-container"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- History -->
+  <section class="history-section" id="ideas-history">
+    <h2 class="section-title">My Saved Ideas</h2>
+    <div id="history-container" class="history-container">
+      <p class="empty-state">No ideas saved yet. Generate some above!</p>
+    </div>
+    <button class="btn-clear hidden" id="clear-btn" onclick="clearHistory()">🗑 Clear History</button>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Powered by <strong>IBM Granite AI</strong> · Built with ❤️ using watsonx.ai</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

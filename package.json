@@ -1,0 +1,12 @@
+{
+  "name": "smart-business-idea-generator",
+  "version": "1.0.0",
+  "description": "Smart Business Idea Generator powered by IBM Granite AI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
