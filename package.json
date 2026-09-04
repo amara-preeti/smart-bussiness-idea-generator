@@ -1,0 +1,16 @@
+{
+  "name": "smart-business-idea-generator",
+  "version": "1.0.0",
+  "description": "Smart Business Idea Generator with local template-based generation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "node build.js",
+    "check": "node --check app.js && node --check server.js",
+    "test": "node --test",
+    "coverage": "node --test --experimental-test-coverage"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
