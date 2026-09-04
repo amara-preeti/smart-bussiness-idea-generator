@@ -237,17 +237,27 @@ function copyAll() {
 function renderHistory() {
   const container = document.getElementById("history-container");
   const clearBtn = document.getElementById("clear-btn");
+  const exportJsonBtn = document.getElementById("export-json-btn");
+  const exportMarkdownBtn = document.getElementById("export-markdown-btn");
+  const query = document.getElementById("history-search")?.value.trim().toLowerCase() || "";
+  const visibleIdeas = savedIdeas.filter((idea) =>
+    `${idea.title} ${idea.description} ${idea.industry}`.toLowerCase().includes(query)
+  );
 
   if (savedIdeas.length === 0) {
     container.innerHTML = `<p class="empty-state">No ideas saved yet. Generate some above!</p>`;
     clearBtn.classList.add("hidden");
+    exportJsonBtn?.classList.add("hidden");
+    exportMarkdownBtn?.classList.add("hidden");
     return;
   }
 
   clearBtn.classList.remove("hidden");
-  container.innerHTML = savedIdeas
+  exportJsonBtn?.classList.remove("hidden");
+  exportMarkdownBtn?.classList.remove("hidden");
+  container.innerHTML = visibleIdeas.length ? visibleIdeas
     .map(
-      (idea, idx) => `
+      (idea) => `
       <div class="history-item">
         <div>
           <div class="history-item-title">${escHtml(idea.title)}</div>
@@ -256,8 +266,18 @@ function renderHistory() {
         <button class="history-remove-btn" onclick="removeFromHistory(${idx})" title="Remove">✕</button>
       </div>
     `
-    )
-    .join("");
+    ).join("") : `<p class="empty-state">No saved ideas match your search.</p>`;
+}
+
+function exportHistory(format) {
+  const content = format === "json"
+    ? JSON.stringify(savedIdeas, null, 2)
+    : savedIdeas.map((idea) => `## ${idea.title}\n\n${idea.description}\n\n- Industry: ${idea.industry}\n- Difficulty: ${idea.difficulty}`).join("\n\n");
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(new Blob([content], { type: "text/plain" }));
+  link.download = `ideaforge-saved-ideas.${format === "json" ? "json" : "md"}`;
+  link.click();
+  URL.revokeObjectURL(link.href);
 }
 
 function removeFromHistory(idx) {
@@ -319,4 +339,5 @@ document.querySelectorAll("input[type='text']").forEach((el) => {
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", () => {
   renderHistory();
+  document.getElementById("history-search")?.addEventListener("input", renderHistory);
 });

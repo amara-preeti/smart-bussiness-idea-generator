@@ -130,6 +130,11 @@
   <!-- History -->
   <section class="history-section" id="ideas-history">
     <h2 class="section-title">My Saved Ideas</h2>
+    <div class="history-tools">
+      <input type="search" id="history-search" placeholder="Search saved ideas" aria-label="Search saved ideas" />
+      <button class="btn-clear hidden" id="export-json-btn" onclick="exportHistory('json')">Export JSON</button>
+      <button class="btn-clear hidden" id="export-markdown-btn" onclick="exportHistory('markdown')">Export Markdown</button>
+    </div>
     <div id="history-container" class="history-container">
       <p class="empty-state">No ideas saved yet. Generate some above!</p>
     </div>
