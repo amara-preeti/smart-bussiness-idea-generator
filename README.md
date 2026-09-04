@@ -18,6 +18,8 @@ For a direct local analysis check:
 
 ```powershell
 python -m pytest
+python -m coverage run -m pytest
+python -m coverage report -m
 ```
 
 Useful commands:
@@ -29,6 +31,8 @@ npm run coverage
 ```
 
 The build command validates the JavaScript entry points and copies the browser assets into `dist/`. The development server serves the source files directly.
+
+The Python domain layer includes deterministic generation, scoring, ranking, persona analysis, budget rules, search, persistence, export, health reporting, tagging, and audit events. Install development tools with `python -m pip install -r requirements-dev.txt` before measuring coverage.
 
 ## Features
 
