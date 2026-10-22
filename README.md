@@ -47,4 +47,4 @@ The browser owns the generation workflow in `app.js`. `server.js` is only a stat
 
 ## Security and licensing
 
-No secrets or API keys are required. This repository intentionally does not include an open-source license file.
+No sensitive data or credentials are required. This repository intentionally does not include an open-source license file.
