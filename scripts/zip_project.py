@@ -19,7 +19,7 @@ def zip_project(output_filename):
                 parts = os.path.normpath(file_path).split(os.sep)
                 if any(p in exclude_dirs for p in parts):
                     continue
-                arcname = os.path.relpath(file_path, '.')
+                arcname = os.path.relpath(file_path, '.').replace('\\', '/')
                 zipf.write(file_path, arcname)
 
 if __name__ == '__main__':
