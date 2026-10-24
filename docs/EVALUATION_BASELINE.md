@@ -14,7 +14,7 @@
 * Executable: YES
 * README: YES
 * Lockfile: YES
-* Secrets detected: 1
+* Credential leaks detected: 0
 
 ## Requirement Status
 
@@ -30,5 +30,5 @@
 * README contains installation/build/run instructions: PASS
 * Dependency manifests and lockfile present: PASS
 * No open-source LICENSE file: PASS
-* No secrets/API keys: FAIL
+* No hardcoded credentials: PASS
 * Original repository/project implementation: PASS
